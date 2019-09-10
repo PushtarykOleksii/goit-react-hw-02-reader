@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import styles from './Counter.module.css';
 
 const Counter = ({ currentItem, items }) => (
-  <p className={styles.counter}>{`${currentItem + 1}/${items.length}`}</p>
+  <p className={styles.counter}>{`${currentItem}/${items.length}`}</p>
 );
 
 Counter.propTypes = {

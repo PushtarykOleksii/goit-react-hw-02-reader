@@ -10,31 +10,36 @@ const Controls = ({
   onDecrement,
   backBtnDisabled,
   forvardBtnDisabled,
-}) => (
-  <section className={styles.controls}>
-    <button
-      type="button"
-      onClick={onDecrement}
-      className={variant({
-        button: true,
-        buttonDisabled: backBtnDisabled === true,
-      })}
-    >
-      Назад
-    </button>
-    <button
-      type="button"
-      className={variant({
-        button: true,
-        button_left: true,
-        buttonDisabled: forvardBtnDisabled === true,
-      })}
-      onClick={onIncrement}
-    >
-      Вперед
-    </button>
-  </section>
-);
+}) => {
+  // const p = backBtnDisabled ? styles.buttonDisabled : styles.button;
+  // const n = forvardBtnDisabled ? styles.buttonDisabled : styles.button;
+  return (
+    <section className={styles.controls}>
+      <button
+        type="button"
+        onClick={onDecrement}
+        className={variant({
+          button: true,
+          buttonDisabled: backBtnDisabled,
+        })}
+        // className={p}
+      >
+        Назад
+      </button>
+      <button
+        type="button"
+        onClick={onIncrement}
+        className={variant({
+          button: true,
+          buttonDisabled: forvardBtnDisabled,
+        })}
+        // className={n}
+      >
+        Вперед
+      </button>
+    </section>
+  );
+};
 
 Controls.propTypes = {
   onIncrement: PropTypes.func.isRequired,

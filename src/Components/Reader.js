@@ -10,52 +10,38 @@ export default class Reader extends Component {
   constructor(items) {
     super(items);
     this.state = {
-      counter: 0,
+      counter: 1,
       backBtnDisabled: true,
       forvardBtnDisabled: false,
     };
   }
 
   handleIncrement = () => {
-    this.setState(prevState => {
-      const forvardBtnDisabled = prevState.counter === items.length - 2;
-
-      let backBtnDisabled = false;
-      if (this.backBtnDisabled && prevState.counter === 1) {
-        backBtnDisabled = false;
-      }
-      return {
-        counter: prevState.counter + 1,
-        backBtnDisabled,
-        forvardBtnDisabled,
-      };
-    });
+    this.setState(prevState => ({
+      counter: prevState.counter + 1,
+      backBtnDisabled: prevState.counter === 1 && !prevState.backBtnDisabled,
+      forvardBtnDisabled:
+        prevState.counter === items.length - 1 && !prevState.forvardBtnDisabled,
+    }));
   };
 
   handleDecrement = () => {
-    this.setState(prevState => {
-      const backBtnDisabled = prevState.counter === 1;
-
-      let forvardBtnDisabled = false;
-      if (this.forvardBtnDisabled && prevState.counter === 10) {
-        forvardBtnDisabled = false;
-      }
-      return {
-        counter: prevState.counter - 1,
-        backBtnDisabled,
-        forvardBtnDisabled,
-      };
-    });
+    this.setState(prevState => ({
+      counter: prevState.counter - 1,
+      backBtnDisabled: prevState.counter === 2 && !prevState.backBtnDisabled,
+      forvardBtnDisabled:
+        prevState.counter === items.length && !prevState.forvardBtnDisabled,
+    }));
   };
 
   render() {
     // eslint-disable-next-line react/destructuring-assignment
-    const currentItem = this.state.counter;
+    const { counter } = this.state;
     const { backBtnDisabled, forvardBtnDisabled } = this.state;
     return (
       <div className={styles.reader}>
-        <Publication currentItem={currentItem} items={items} />
-        <Counter currentItem={currentItem} items={items} />
+        <Publication currentItem={counter} items={items} />
+        <Counter currentItem={counter} items={items} />
         <Controls
           onIncrement={this.handleIncrement}
           onDecrement={this.handleDecrement}

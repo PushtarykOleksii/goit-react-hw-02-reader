@@ -4,8 +4,8 @@ import styles from './Publication.module.css';
 
 const Publication = ({ items, currentItem }) => (
   <article className={styles.publication}>
-    <h2 className={styles.publicationTitle}>{items[currentItem].title}</h2>
-    <p className={styles.publicationP}>{items[currentItem].text}</p>
+    <h2 className={styles.publicationTitle}>{items[currentItem - 1].title}</h2>
+    <p className={styles.publicationP}>{items[currentItem - 1].text}</p>
   </article>
 );
 
