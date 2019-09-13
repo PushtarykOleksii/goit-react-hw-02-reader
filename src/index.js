@@ -1,8 +1,11 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import publications from './Components/publications.json';
-import Reader from './Components/Reader';
+import { HashRouter } from 'react-router-dom';
+import App from './Components/App';
 
-const App = () => <Reader items={publications} />;
-
-ReactDOM.render(<App />, document.getElementById('root'));
+ReactDOM.render(
+  <HashRouter basename="/">
+    <App />
+  </HashRouter>,
+  document.getElementById('root'),
+);

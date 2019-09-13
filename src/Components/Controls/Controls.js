@@ -11,8 +11,6 @@ const Controls = ({
   backBtnDisabled,
   forvardBtnDisabled,
 }) => {
-  // const p = backBtnDisabled ? styles.buttonDisabled : styles.button;
-  // const n = forvardBtnDisabled ? styles.buttonDisabled : styles.button;
   return (
     <section className={styles.controls}>
       <button

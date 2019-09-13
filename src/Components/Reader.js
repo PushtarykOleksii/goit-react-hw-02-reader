@@ -1,12 +1,22 @@
-/* eslint-disable no-shadow */
 import React, { Component } from 'react';
+import queryString from 'query-string';
+import PropTypes from 'prop-types';
 import styles from './Reader.module.css';
 import items from './publications.json';
 import Publication from './Publication/Publication';
 import Counter from './Counter/Counter';
 import Controls from './Controls/Controls';
 
+const getItemsFromLocation = location =>
+  queryString.parse(location.search).item;
+
+const type = {
+  TRUE: true,
+  FALSE: false,
+};
+
 export default class Reader extends Component {
+  // eslint-disable-next-line no-shadow
   constructor(items) {
     super(items);
     this.state = {
@@ -14,6 +24,27 @@ export default class Reader extends Component {
       backBtnDisabled: true,
       forvardBtnDisabled: false,
     };
+  }
+
+  componentDidMount() {
+    // eslint-disable-next-line react/destructuring-assignment
+    const parse = Number(getItemsFromLocation(this.props.location));
+    this.setState({
+      counter: parse,
+      backBtnDisabled: parse === 1 ? type.TRUE : type.FALSE,
+      forvardBtnDisabled: parse === items.length ? type.TRUE : type.FALSE,
+    });
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    const { counter } = this.state;
+    const { history, location } = this.props;
+    if (prevState.counter !== counter) {
+      history.push({
+        ...location,
+        search: `item=${counter}`,
+      });
+    }
   }
 
   handleIncrement = () => {
@@ -35,7 +66,6 @@ export default class Reader extends Component {
   };
 
   render() {
-    // eslint-disable-next-line react/destructuring-assignment
     const { counter } = this.state;
     const { backBtnDisabled, forvardBtnDisabled } = this.state;
     return (
@@ -52,3 +82,7 @@ export default class Reader extends Component {
     );
   }
 }
+Reader.propTypes = {
+  location: PropTypes.shape().isRequired,
+  history: PropTypes.shape().isRequired,
+};
